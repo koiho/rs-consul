@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  consul:
+    container_name: consul
+    image: consul:1.11.11
+    command: >-
+      consul
+      agent
+      -dev
+      -log-level=debug
+      -recursor=8.8.8.8
+      -client=0.0.0.0
+      -enable-local-script-checks
+      -config-file=/consul/config/config.hcl
+      -datacenter=dc1
+    ports:
+      - 8500:8500
+    volumes:
+      - "./testdata:/consul/config"
+    restart: always
